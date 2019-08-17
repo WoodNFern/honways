@@ -4,7 +4,6 @@ import System.IO
 
 main :: IO ()
 main = do
-   handle <- openFile "input.txt" ReadMode
-   contents <- hGetContents handle
+   contents <- readFile "input.txt"
    putStr contents
-   hClose handle
+   writeFile "output.txt" contents
