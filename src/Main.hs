@@ -2,20 +2,17 @@ module Main where
 
 import System.IO
 
-processLines :: [String] -> [String]
-processLines (x:xs) = (processLine x) : (processLines xs)
-processLines []     = []
+blockifyLines :: [String] -> [String]
+blockifyLines (x:xs) = (map blockifyLine x) : (blockifyLines xs)
+blockifyLines []     = []
 
-processLine :: String -> String
-processLine x = "Processed one line\n"
-
-replaceChar :: Char -> Char
-replaceChar '0' = ' '
-replaceChar '1' = '█'
-replaceChar x = x
+blockifyLine :: Char -> Char
+blockifyLine '0' = ' '
+blockifyLine '1' = '█'
+blockifyLine x = x
 
 main :: IO ()
 main = do
    contents <- readFile "input.txt"
-   putStr . foldr (++) "" $ processLines $ lines contents
+   putStr . unlines . blockifyLines $ lines contents
    writeFile "output.txt" contents
