@@ -22,6 +22,11 @@ textifyElement x
     | x <= 0.5  = ' '
     | x > 0.5   = '█'
 
+getNeighborIndices :: (Int, Int) -> Matrix a -> [(Int, Int)]
+getNeighborIndices (x, y) m = [ (r, c) | r <- [1 .. nrows m], c <- [1 .. ncols m],
+                                         (abs (x - r)) <= 1, (abs (y - c)) <= 1,       -- all elements in radius 1
+                                         not $ (x == r) && (y == c)]                   -- not element itself
+
 main :: IO ()
 main = do
    contents <- readFile "input.txt"
