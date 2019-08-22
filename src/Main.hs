@@ -22,8 +22,8 @@ textifyElement x
     | x <= 0.5  = ' '
     | x > 0.5   = '█'
 
-sumOfNeighbors :: (Num a, Show a) => (Int, Int) -> Matrix a -> a
-sumOfNeighbors (x, y) m = foldr (+) 0 $ getNeighborElements (x, y) m
+sumOfNeighbors :: (Num a, Show a) => Matrix a -> (Int, Int) -> a -> a
+sumOfNeighbors m (x, y) _ = foldr (+) 0 $ getNeighborElements (x, y) m
 
 getNeighborElements :: (Int, Int) -> Matrix a -> [a]
 getNeighborElements (x, y) m = map (\(r, c) -> getElem r c m) $ getNeighborIndices (x, y) m
