@@ -22,6 +22,12 @@ textifyElement x
     | x <= 0.5  = ' '
     | x > 0.5   = '█'
 
+isAlive :: (Num a, Show a, Ord a) => Matrix a -> (Int, Int) -> a -> a
+isAlive m (x, y) v
+    | v < 2 || v > 3    = 0
+    | v == 2            = getElem x y m
+    | v == 3            = 1
+
 neighborCountMatrix :: (Num a, Show a, Ord a) => Matrix a -> Matrix a
 neighborCountMatrix m = mapPos (sumOfNeighbors m) m
 
