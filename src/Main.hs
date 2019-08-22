@@ -22,6 +22,9 @@ textifyElement x
     | x <= 0.5  = ' '
     | x > 0.5   = '█'
 
+simulateLife :: (Num a, Show a, Ord a) => Matrix a -> Matrix a
+simulateLife m = mapPos (isAlive m) $ neighborCountMatrix m
+
 isAlive :: (Num a, Show a, Ord a) => Matrix a -> (Int, Int) -> a -> a
 isAlive m (x, y) v
     | v < 2 || v > 3    = 0
