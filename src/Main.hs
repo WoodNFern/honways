@@ -49,5 +49,6 @@ main :: IO ()
 main = do
    contents <- readFile "input.txt"
    let matrix = fromLists . numerifyTextLines $ lines contents
-   putStr . unlines . textifyMatrix $ toLists matrix
-   writeFile "output.txt" contents
+   let steppedMatrix = unlines . textifyMatrix . toLists $ simulateLife matrix
+   putStr steppedMatrix
+   writeFile "output.txt" steppedMatrix
