@@ -12,6 +12,8 @@ numerifyTextLine :: Char -> Double
 numerifyTextLine x
     | x == '0'  = 0
     | x == '1'  = 1
+    | x == ' '  = 0
+    | x == '█'  = 1
 
 textifyMatrix :: [[Double]] -> [String]
 textifyMatrix (x:xs)    = (map textifyElement x) : (textifyMatrix xs)
