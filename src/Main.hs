@@ -24,10 +24,19 @@ textifyElement x
     | x <= 0.5  = ' '
     | x > 0.5   = '█'
 
+
+-- |Performs a single simulation step of Conway's Game of Life.
 simulateLife :: (Num a, Show a, Ord a) => Matrix a -> Matrix a
 simulateLife m = mapPos (isAlive m) $ neighborCountMatrix m
 
-isAlive :: (Num a, Show a, Ord a) => Matrix a -> (Int, Int) -> a -> a
+
+
+-- |Evaluate for a single given cell, whether it stays alive or dies according to the rules of Conway's Game of Life.
+isAlive :: (Num a, Show a, Ord a)
+        => Matrix a     -- ^ game of life matrix
+        -> (Int, Int)   -- ^ row and column of the cell for which to evaluate livelyness
+        -> a            -- ^ current livelyness value of the given cell
+        -> a            -- ^ return: livelyness value of the given cell in the next iteration
 isAlive m (x, y) v
     | v < 2 || v > 3    = 0
     | v == 2            = getElem x y m
