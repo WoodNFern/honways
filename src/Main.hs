@@ -33,11 +33,27 @@ isAlive m (x, y) v
     | v == 2            = getElem x y m
     | v == 3            = 1
 
-neighborCountMatrix :: (Num a, Show a, Ord a) => Matrix a -> Matrix a
+
+
+-- |Transforms an instance of a game of life matrix to a matrix containing the sum of the respective element's
+-- neighbors' values.
+neighborCountMatrix :: (Num a, Show a, Ord a)
+                    => Matrix a     -- ^ game of life matrix
+                    -> Matrix a     -- ^ return: matrix containing sum of neighbors' values of the corresponding element
+                                    --           in the input matrix
 neighborCountMatrix m = mapPos (sumOfNeighbors m) m
 
-sumOfNeighbors :: (Num a, Show a, Ord a) => Matrix a -> (Int, Int) -> a -> a
+
+
+-- |Sums up the numerical values of all existing, direct neighbors.
+sumOfNeighbors :: (Num a, Show a, Ord a)
+                => Matrix a     -- ^ matrix on which to operate
+                -> (Int, Int)   -- ^ row and column of the matrix element for which to calculate the neighbor's sum
+                -> a            -- ^ matrix element's value. Only required to be used as function for 'Matrix#mapPos'
+                -> a            -- ^ return: summed up values of all direct neighbors
 sumOfNeighbors m (x, y) _ = foldr (+) 0 $ getNeighborElements (x, y) m
+
+
 
 -- |Retrieves all direct neighbors of a specified matrix element. If an element resides on the edge of a matrix,
 -- would-be neighbor elements beyond that edge will not be included in the list, i.e. it will only contain real,
