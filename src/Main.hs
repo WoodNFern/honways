@@ -39,13 +39,27 @@ neighborCountMatrix m = mapPos (sumOfNeighbors m) m
 sumOfNeighbors :: (Num a, Show a, Ord a) => Matrix a -> (Int, Int) -> a -> a
 sumOfNeighbors m (x, y) _ = foldr (+) 0 $ getNeighborElements (x, y) m
 
-getNeighborElements :: (Int, Int) -> Matrix a -> [a]
-getNeighborElements (x, y) m = map (\(r, c) -> getElem r c m) $ getNeighborIndices (x, y) m
+-- |Retrieves all direct neighbors of a specified matrix element. If an element resides on the edge of a matrix,
+-- would-be neighbor elements beyond that edge will not be included in the list, i.e. it will only contain real,
+-- existing neighbors.
+getNeighborElements :: (Int, Int)       -- ^ row and column of the matrix element for which to get all neighbors
+                        -> Matrix a     -- ^ matrix on which to operate
+                        -> [a]          -- ^ return: List of direct neighbors
+getNeighborElements (x, y) m = map (\(r, c) -> getElem r c m) $ getNeighborCoordinates (x, y) m
 
-getNeighborIndices :: (Int, Int) -> Matrix a -> [(Int, Int)]
-getNeighborIndices (x, y) m = [ (r, c) | r <- [1 .. nrows m], c <- [1 .. ncols m],
+
+
+-- |Generates a list containing row (r) and column (c) for each neighbor of a specified matrix element. If an element
+-- resides on the edge of a matrix, would-be neighbor elements beyond that edge will not be included in the list, i.e.
+-- it will only contain real, existing neighbors.
+getNeighborCoordinates  :: (Int, Int)   -- ^ row and column of the matrix element for which to get neighbor coordinates
+                    -> Matrix a         -- ^ matrix on which to operate
+                    -> [(Int, Int)]     -- ^ return: List of coordinates of each neighbor
+getNeighborCoordinates (x, y) m = [ (r, c) | r <- [1 .. nrows m], c <- [1 .. ncols m],
                                          (abs (x - r)) <= 1, (abs (y - c)) <= 1,       -- all elements in radius 1
                                          not $ (x == r) && (y == c)]                   -- not element itself
+
+
 
 main :: IO ()
 main = do
