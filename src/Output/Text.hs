@@ -1,14 +1,16 @@
 module Output.Text
-( textifyMatrix
+( stringifyMatrix
 ) where
 
+import Data.Matrix (Matrix, mapPos, toLists)
 
+stringifyMatrix :: (Fractional a, Ord a) => Matrix a  -> String
+stringifyMatrix m = unlines . toLists $ textifyMatrix m
 
-textifyMatrix :: [[Double]] -> [String]
-textifyMatrix (x:xs)    = (map textifyElement x) : (textifyMatrix xs)
-textifyMatrix []        = []
+textifyMatrix :: (Fractional a, Ord a) => Matrix a -> Matrix Char
+textifyMatrix m = mapPos textifyElement m
 
-textifyElement :: Double -> Char
-textifyElement x
+textifyElement :: (Fractional a, Ord a) => (Int, Int) -> a -> Char
+textifyElement _ x
     | x <= 0.5  = ' '
     | x > 0.5   = '█'
