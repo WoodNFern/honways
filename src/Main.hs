@@ -12,6 +12,6 @@ main :: IO ()
 main = do
    contents <- readFile "input.txt"
    let matrix = fromLists . numerifyTextLines $ lines contents
-   let steppedMatrix = stringifyMatrix $ simulateLife matrix
-   putStr steppedMatrix
-   writeFile "output.txt" steppedMatrix
+   let iterations = iterate simulateLife matrix
+   let ioActions = map (\x -> putStr $ stringifyMatrix x) $ take 100 iterations
+   foldr (>>) (putStr "") ioActions
