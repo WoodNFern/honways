@@ -20,8 +20,7 @@ executable honways
   other-modules:
     Simulation.GameOfLife,
     Input.Text,
-    Output.Text,
-    Output.File
+    Output.Text
   -- other-extensions:
   build-depends:       base >=4.12 && <4.13,
     matrix == 0.3.6.1

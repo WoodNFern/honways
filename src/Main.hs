@@ -3,7 +3,7 @@ module Main where
 import System.IO
 import Data.Matrix (fromLists)
 import Input.Text (numerifyTextLines)
-import Output.File (saveSimulation)
+import Output.Text (saveSimulation)
 import Simulation.GameOfLife
 
 
