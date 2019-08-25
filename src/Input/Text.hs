@@ -1,8 +1,14 @@
 module Input.Text
-( numerifyTextLines
+( loadMatrix
+, numerifyTextLines
 ) where
 
+import Data.Matrix (Matrix, fromLists)
 
+
+
+loadMatrix :: String -> Matrix Double
+loadMatrix c = fromLists . numerifyTextLines $ lines c
 
 numerifyTextLines :: [String] -> [[Double]]
 numerifyTextLines (x:xs)    = (map numerifyTextLine x) : (numerifyTextLines xs)
