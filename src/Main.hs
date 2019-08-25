@@ -1,10 +1,8 @@
 module Main where
 
 import System.IO
-import Data.Char
-import Data.Matrix (fromLists, toLists)
-import Input.Text
-import Output.Text
+import Data.Matrix (fromLists)
+import Input.Text (numerifyTextLines)
 import Output.File (saveSimulation)
 import Simulation.GameOfLife
 
